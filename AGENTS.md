@@ -41,6 +41,9 @@
 
 ## 持續更新與發布
 
-1. Word 改稿放在 `blog/`。收到上架指示後，才轉成 Markdown 並新增或更新 `publish/` 內的同篇文章。使用者將文章放入 `publish/`，即表示納入網站發布清單。發布資格只由這個資料夾決定。
-2. 建置時讀取 `publish/` 的 Markdown，依分類重建首頁和文章頁。執行 `python3 build_site.py --preview` 更新 `preview/`，再執行 `python3 build_site.py` 更新公開用的 `site/`。放入即新增，替換同 slug 的文章即更新，移出即從生成的網站移除。原本的 `raw/`、`blog/` 和未改動的文章來源應予保留。
-3. 驗證分類、slug、文章與返回首頁連結。公開部署只上傳網站成品與必要的公開專案檔。發布前檢查私人筆記、原始附件和未列入發布清單的文章。交付時說明新增或更新的篇名、分類與預覽位置，並區分已重建本機網站和已部署公開網站。
+1. Word 原稿和修訂稿留在 `blog/`。收到上架指示後，才轉成 Markdown 並新增或更新 `publish/` 內的同篇文章。修改標題或分類時沿用原 slug，讓既有網址繼續有效。
+2. 本機執行 `python3 build_site.py --preview` 更新 `preview/`，或執行 `python3 build_site.py` 產生公開網站成品 `site/`。檢查分類、slug、首頁連結與文章頁的返回連結。
+3. 公開網站使用 [GitHub 儲存庫](https://github.com/114364121-ai/research-notes) 的 `main` 分支。新增或修改文章時，將對應的 Markdown 提交到 GitHub 的 `publish/`。`Publish research site` 工作流程會讀取該資料夾、重建並部署網站。上傳目的地為 `main/publish/`，`docs/`、`site/`、`preview/` 留在這個發布流程之外。提交前檢查公開檔案是否含私人筆記或原始附件。
+4. 撤文時，將對應 Markdown 移出本機與 GitHub 的 `publish/`，重建本機預覽並等待公開部署。保留 `blog/` 的 Word 原稿、`raw/` 的文獻筆記及其他文章。
+5. 提交後到 GitHub Actions 確認最新部署成功，再檢查[公開首頁](https://114364121-ai.github.io/research-notes/)。新增或更新時，從首頁點進文章，核對分類與內容。撤下時，確認首頁移除連結且原網址回傳 404。若仍看到舊版，可強制重新整理或暫加查詢參數避開快取。對外分享與繳交一律使用原網址。
+6. 交付時說明處理的篇名、分類與網址，並分別回報本機重建、GitHub 提交與公開網站驗證的結果。
